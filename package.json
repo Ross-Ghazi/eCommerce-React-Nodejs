@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +21,10 @@
   },
   "homepage": "https://github.com/Rouzbeh1797/eCommerce-React-Nodejs#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1"
   }
 }
