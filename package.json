@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rouzbeh1797/eCommerce-React-Nodejs.git"
+    "url": "git+https://github.com/Ross-Ghazi/eCommerce-React-Nodejs.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rouzbeh1797/eCommerce-React-Nodejs/issues"
+    "url": "https://github.com/Ross-Ghazi/eCommerce-React-Nodejs/issues"
   },
-  "homepage": "https://github.com/Rouzbeh1797/eCommerce-React-Nodejs#readme",
+  "homepage": "https://github.com/Ross-Ghazi/eCommerce-React-Nodejs#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
