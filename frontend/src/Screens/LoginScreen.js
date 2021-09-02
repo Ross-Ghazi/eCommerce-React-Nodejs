@@ -41,7 +41,7 @@ function LoginScreen({ location, history }) {
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
