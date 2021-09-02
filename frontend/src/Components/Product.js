@@ -1,32 +1,37 @@
 import React from "react";
-import { Card } from "react-bootstrap";
-import Rating from "../Components/Rating";
 import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
+import Rating from "./Rating";
+
+//  https://getbootstrap.com/docs/4.0/utilities/spacing/#notation
+// https://react-bootstrap.netlify.app/components/cards/
+// https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_phrase_strong
 
 function Product({ product }) {
   return (
-    <div>
-      <Card className="my-3 p-3 rounded">
+    <Card className="my-3 p-3 rounded">
+      <Link to={`/product/${product._id}`}>
+        <Card.Img src={product.image} />
+      </Link>
+      <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Img variant="top" src={product.image} />
+          <Card.Title as="div">
+            <strong>{product.name}</strong>
+          </Card.Title>
         </Link>
-
-        <Card.Body>
-          <Link to={`/product/${product._id}`}>
-            <Card.Title as="div" className="card-title">
-              <strong>{product.name}</strong>
-            </Card.Title>
-          </Link>
-          <Card.Text as="div">
+        <Card.Text as="div">
+          <div className="my-3">
             <Rating
               value={product.rating}
               text={`${product.numReviews} reviews`}
+              color={"#f8e825"}
             />
-          </Card.Text>
-          <Card.Text as="h4">${product.price}</Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
+          </div>
+        </Card.Text>
+
+        <Card.Text as="h3">${product.price}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 

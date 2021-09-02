@@ -1,6 +1,6 @@
 import React from "react";
-const color = "#f8e825";
-function Rating({ value, text }) {
+
+function Rating({ value, text, color }) {
   return (
     <div className="rating">
       <span>
