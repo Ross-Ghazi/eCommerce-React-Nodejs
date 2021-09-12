@@ -1,175 +1,170 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Form, Button, Table } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import React, { useEffect } from "react";
+import { Row, Col, Button, ListGroup, Image, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
+import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
-import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { USER_UPDATE_RESET } from "../constants/userConstants";
-import { listMyOrders } from "../actions/orderActions";
 
-function ProfileScreen({ location, history }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [message, setMessage] = useState("");
-  const [isProfileUpdated, setIsProfileUpdated] = useState(false);
+import { createOrder } from "../actions/orderActions";
 
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+
+function PlaceOrderScreen({ history }) {
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, error, success } = orderCreate;
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { error, loading, user } = userDetails;
+  const cart = useSelector((state) => state.cart);
+  cart.itemsPrice = cart.cartItems.reduce((total, item) => {
+    return (total += item.qty * item.price);
+  }, 0);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 25;
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
+  cart.taxPrice = Number(
+    ((cart.itemsPrice + cart.shippingPrice) * 0.05).toFixed(2)
+  );
+  cart.totalPrice = Number(
+    (cart.taxPrice + cart.shippingPrice + cart.itemsPrice).toFixed(2)
+  );
 
-  const myOrderList = useSelector((state) => state.myOrderList);
-
-  const { loading: loadingOrders, error: errorOrders, orders } = myOrderList;
+  if (!cart.paymentMethod) {
+    history.push(`/payment`);
+  }
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push("/login");
-    } else {
-      if (!user || !user.name) {
-        dispatch(getUserDetails("profile"));
-        dispatch(listMyOrders());
-      } else if (success) {
-        dispatch({ type: USER_UPDATE_RESET });
-        dispatch(getUserDetails("profile"));
-        setIsProfileUpdated(true);
-      } else {
-        console.log("3333");
-        setName(user.name);
-        setEmail(user.email);
-      }
+    if (success) {
+      history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [history, dispatch, success, user, userInfo]);
+  }, [success, history, dispatch]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      setMessage("Passwords do not match");
-    } else {
-      dispatch(
-        updateUserProfile({
-          id: user._id,
-          name: name,
-          email: email,
-          password: password,
-        })
-      );
-    }
+  const placeOrder = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
-
   return (
-    <Row>
-      <Col md={3}>
-        <h2>User Profile</h2>
+    <div>
+      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+      <Row>
+        <Col md={8}>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <h2>Shipping</h2>
+              <p>
+                <strong>adress:</strong>
+                {cart.shippingAddress.address}, {cart.shippingAddress.city},{" "}
+                {cart.shippingAddress.postalcode},{" "}
+                {cart.shippingAddress.country},
+              </p>
+            </ListGroup.Item>
 
-        {message && <Message variant="danger">{message}</Message>}
-        {error && <Message variant="danger">{error}</Message>}
-        {isProfileUpdated && (
-          <Message variant="success">Profile updated</Message>
-        )}
-        {loading && <Loader />}
+            <ListGroup.Item>
+              <h2>Payment Method</h2>
+              <p>
+                <strong>Method:</strong>
+                {cart.paymentMethod}
+              </p>
+            </ListGroup.Item>
 
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId="name">
-            <Form.Label> Name</Form.Label>
-            <Form.Control
-              required
-              type="name"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+            <ListGroup.Item>
+              <h2>Order items</h2>
+              {cart.cartItems.length === 0 ? (
+                <Message variant="info">Your card is empty</Message>
+              ) : (
+                <ListGroup variant="flush">
+                  {cart.cartItems.map((item, index) => (
+                    <ListGroup.Item key={index}>
+                      <Row>
+                        <Col md={1}>
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fluid
+                            rounded
+                          />
+                        </Col>
+                        <Col>
+                          <Link to={`/product/${item.product}`}>
+                            {item.name}{" "}
+                          </Link>
+                        </Col>
 
-          <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type="email"
-              required
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+                        <Col md={4}>
+                          {item.qty} X ${item.price}=$
+                          {(item.qty * item.price).toFixed(2)}
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={4}>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>Order Summery</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Item:</Col>
+                  <Col>${cart.itemsPrice}</Col>
+                </Row>
+              </ListGroup.Item>
 
-          <Form.Group controlId="password">
-            <Form.Label>Email Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Shipping:</Col>
+                  <Col>${cart.shippingPrice}</Col>
+                </Row>
+              </ListGroup.Item>
 
-          <Form.Group controlId="password2">
-            <Form.Label>Cinfirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confrim password"
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Tax:</Col>
+                  <Col>${cart.taxPrice}</Col>
+                </Row>
+              </ListGroup.Item>
 
-          <Button type="submit" variant="primary">
-            update
-          </Button>
-        </Form>
-      </Col>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Total:</Col>
+                  <Col>${cart.totalPrice}</Col>
+                </Row>
+              </ListGroup.Item>
 
-      <Col md={9}>
-        <h2>My Orders</h2>
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant="danger">{errorOrders}</Message>
-        ) : (
-          <Table striped responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Paid</th>
-                <th>Delivered</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className="btn-sm">Details</Button>
-                    </LinkContainer>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
-    </Row>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Button
+                  type="button"
+                  className="btn-block"
+                  disabled={cart.cartItems === 0}
+                  onClick={placeOrder}
+                >
+                  Place Order
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
-export default ProfileScreen;
+export default PlaceOrderScreen;

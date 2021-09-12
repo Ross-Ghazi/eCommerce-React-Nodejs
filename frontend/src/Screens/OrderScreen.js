@@ -21,10 +21,11 @@ function OrderScreen({ match }) {
   const orderPay = useSelector((state) => state.orderPay);
   const { success: successPay, loading: loadingPay } = orderPay;
 
-  if (!loading & error) {
-    order.itemsPrice = order.orderItems.reduce((total, item) => {
-      return (total += item.qty * item.price);
-    }, 0);
+  if (!loading & !error) {
+    order.itemsPrice = order.orderItems
+      .reduce((total, item) => total + item.qty * item.price, 0)
+      .toFixed(2);
+    order.itemsPrice = Number(order.itemsPrice);
   }
   const addPayPakScript = () => {
     const script = document.createElement("script");
@@ -39,7 +40,7 @@ function OrderScreen({ match }) {
   };
 
   useEffect(() => {
-    if (!order || successPay || order._id !== Number(orderId)) {
+    if (!order || successPay || order._id != orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {

@@ -44,7 +44,6 @@ function ProfileScreen({ location, history }) {
         setMessage("");
         setIsProfileUpdated(true);
       } else {
-        console.log("3333");
         setName(user.name);
         setEmail(user.email);
       }
@@ -104,7 +103,7 @@ function ProfileScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Email Password</Form.Label>
+            <Form.Label> Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
@@ -114,7 +113,7 @@ function ProfileScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password2">
-            <Form.Label>Cinfirm Password</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Confrim password"
