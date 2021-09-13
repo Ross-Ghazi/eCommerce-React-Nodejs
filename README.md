@@ -27,7 +27,7 @@
 
 <br />
 
-![alt text](./resources\image\Preview.PNG)
+![alt text](https://github.com/Ross-Ghazi/eCommerce-React-Nodejs/blob/main/resources/image/Preview.PNG?raw=true)
 
 ## How to run?
 
