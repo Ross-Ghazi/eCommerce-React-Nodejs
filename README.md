@@ -11,15 +11,15 @@
 
 #### BackEnd:
 
-- **Django (Python)**
+- **Node.js & express (JavaScript)**
 
 #### DataBase (SQL):
 
-- PostgreSQL
+- MongoDB
 
 <br />
 
-**I have similar project in my Github repo using the same frontend but using Node.js in backend**
+**I have similar project in my Github repo using the same frontend but using Python (Django) in backend**
 
 <br />
 
