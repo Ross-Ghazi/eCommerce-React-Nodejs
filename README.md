@@ -37,7 +37,7 @@ From both root and frontEnd folder:
 npm install
 ```
 
-- Create .env file with following infomration
+- Create .env file with following information
 
 ```
 NODE_ENV=development
@@ -46,7 +46,7 @@ MONGO_URI=....
 JWT_SECRET=....
 ```
 
-- After intalling requrements and creating .env file, run follwoing command on root to run both backend and frontend:
+- After intalling requrements and creating .env file, run following command on root to run both backend and frontend:
 
 ```
 npm run dev
