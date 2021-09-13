@@ -27,7 +27,7 @@
 
 <br />
 
-![alt text](./resources\image\Preview.PNG)
+![alt text](./resources\image\Preview.png)
 
 ## How to run?
 
