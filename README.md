@@ -13,7 +13,7 @@
 
 - **Node.js & express (JavaScript)**
 
-#### DataBase (SQL):
+#### DataBase (NoSQL):
 
 - **MongoDB**
 
