@@ -19,7 +19,7 @@
 
 <br />
 
-**I have similar project in my Github repo using the same frontend but using Python (Django) in backend**
+**There is another project in my Github repo using the same frontend but using Python (Django) and PostGreSQL in backend**
 
 <br />
 
