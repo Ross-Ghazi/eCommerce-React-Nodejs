@@ -6,7 +6,7 @@
 
 - **React**
   - Redux
-  - Roputer (react-router-dom)
+  - Router (react-router-dom)
   - React Bootstrap
 
 #### BackEnd:
@@ -23,7 +23,7 @@
 
 <br />
 
-## Link to live verison [here](https://www.onlineshopsample.ca/)
+## Link to live version [Under Construction](https://e-commerce-react-nodejs.herokuapp.com/)
 
 <br />
 
@@ -46,7 +46,7 @@ MONGO_URI=....
 JWT_SECRET=....
 ```
 
-- After intalling requrements and creating .env file, run following command on root to run both backend and frontend:
+- After installing requirements and creating .env file, run following command on root to run both backend and frontend:
 
 ```
 npm run dev
