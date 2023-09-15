@@ -34,3 +34,32 @@ in frontend folder:
 - yarn create react-app my-app --template typescript
 - yarn start
 - yarn build (to create build folder)
+
+<br />
+## backend
+
+inside backend folder:
+
+- npm init -y
+- yarn add -D typescript ts-node nodemon jest ts-jest @types/node @types/jest uuid @types/uuid @types/aws-lambda
+- yarn add -D esbuild (for bundling)
+- **_important_** run yarn add -D esbuild for both cdk folder and backend folder
+
+- yarn add --dev @tsconfig/node-lts (refer to https://github.com/tsconfig/bases)
+- tsc --init (to create tsconfig.json file)
+- delete content of tsconfig.json and only put:
+
+```json
+{
+  "extends": "@tsconfig/node-lts/tsconfig.json"
+}
+```
+
+- add these two script on package.json
+
+```
+ "build": "esbuild `find . \\( -name '**index.ts' \\) ! -path './node_modules/*'` --bundle --minify --sourcemap --platform=node --outdir=dist",
+
+ "autobuild": "nodemon --ext ts --exec 'npm run build'"
+
+```
