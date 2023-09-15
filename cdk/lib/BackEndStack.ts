@@ -1,5 +1,5 @@
 import { Stack, StackProps } from "aws-cdk-lib";
-import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
@@ -12,6 +12,7 @@ export class BackEndStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    // creating lambda functions
     const entry = join(
       __dirname,
       "..",
@@ -21,9 +22,7 @@ export class BackEndStack extends Stack {
       "helloWord",
       "helloWord.ts"
     );
-
-    // const entry = join(__dirname, "..", "services", "helloWord.ts");
-    new NodejsFunction(this, "HelloLambda", {
+    const helloLambda = new NodejsFunction(this, "HelloLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
       entry,
@@ -31,5 +30,12 @@ export class BackEndStack extends Stack {
         TABLE_NAME: "empty for now",
       },
     });
+
+    // creating APIGateWay
+    // LambdaIntegration will be used to attached helloLambda to ApiGateway
+    const helloLambdaIntegration = new LambdaIntegration(helloLambda);
+    const api = new RestApi(this, "api");
+    const spacesResource = api.root.addResource("v1");
+    spacesResource.addMethod("GET", helloLambdaIntegration);
   }
 }
