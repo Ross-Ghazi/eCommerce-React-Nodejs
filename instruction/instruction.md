@@ -71,7 +71,7 @@ inside backend folder:
 
 2. click on nodejs
 3. copy paste what I have in my launch.json
-4. fo to root folder:
+4. go to root folder:
 
 - npm init -y
 - yarn add -D typescript ts-node
@@ -79,3 +79,8 @@ inside backend folder:
 5. create a test file and put bullet point. focus on th test file and run the test.
 
 <br />
+
+## auth
+
+how to activate uer manually in User pools:
+aws cognito-idp admin-set-user-password --user-pool-id <User pool ID> --username <username> --password "<password>" --permanent
