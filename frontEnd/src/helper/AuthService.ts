@@ -1,6 +1,6 @@
 import { type CognitoUser } from "@aws-amplify/auth";
 import { Amplify, Auth } from "aws-amplify";
-import { config } from "./config";
+import { config } from "../constants/config";
 import { User } from "./types";
 
 Amplify.configure({
