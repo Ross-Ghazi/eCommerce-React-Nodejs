@@ -18,7 +18,7 @@ export class FrontEndStack extends Stack {
       bucketName: `frontend-${suffix}`,
     });
 
-    const uiDir = join(__dirname, "..", "..", "frontEnd", "dist");
+    const uiDir = join(__dirname, "..", "..", "frontEnd", "build");
     if (!existsSync(uiDir)) {
       console.warn("frontend file was  not found: " + uiDir);
       return;

@@ -26,3 +26,11 @@
 ![Alt text](image-4.png)
 
 <br />
+
+## install react
+
+in frontend folder:
+
+- yarn create react-app my-app --template typescript
+- yarn start
+- yarn build (to create build folder)
