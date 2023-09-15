@@ -5,6 +5,7 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { join } from "path";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 interface BackEndStackProps extends StackProps {
   shopTable: ITable;
@@ -34,6 +35,13 @@ export class BackEndStack extends Stack {
       },
     });
 
+    helloLambda.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ["s3:ListAllMyBuckets", "s3:ListBucket"],
+        resources: ["*"],
+      })
+    );
     // creating APIGateWay
     // LambdaIntegration will be used to attached helloLambda to ApiGateway
     const helloLambdaIntegration = new LambdaIntegration(helloLambda);
