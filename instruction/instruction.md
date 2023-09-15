@@ -63,3 +63,19 @@ inside backend folder:
  "autobuild": "nodemon --ext ts --exec 'npm run build'"
 
 ```
+
+<br />
+## add debug
+
+1. ![Alt text](image-7.png)
+
+2. click on nodejs
+3. copy paste what I have in my launch.json
+4. fo to root folder:
+
+- npm init -y
+- yarn add -D typescript ts-node
+
+5. create a test file and put bullet point. focus on th test file and run the test.
+
+<br />
