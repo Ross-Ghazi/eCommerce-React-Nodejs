@@ -9,7 +9,7 @@ import { AuthStack } from "../lib/AuthStack";
 const app = new cdk.App();
 
 const dataStack = new DataStack(app, "e-commerce-db");
-new AuthStack(app, "AuthStack");
+new AuthStack(app, "e-commerce-authStack");
 new BackEndStack(app, "e-commerce-backend", {
   shopTable: dataStack.shopTable,
 });

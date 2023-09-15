@@ -1,21 +1,68 @@
 import { type CognitoUser } from "@aws-amplify/auth";
-// import "crypto-js/lib-typedarrays";
 import { Amplify, Auth } from "aws-amplify";
-
-const awsRegion = "us-west-2";
+import { config } from "./config";
+import { User } from "./types";
 
 Amplify.configure({
   Auth: {
-    region: awsRegion,
-    userPoolId: "us-west-2_xva90Wd18",
-    userPoolWebClientId: "65t0o4sa61buvd9b5qektpiio0",
+    region: config.REGION,
+    userPoolId: config.USER_POOL_ID,
+    userPoolWebClientId: config.APP_CLIENT_ID,
     authenticationFlowType: "USER_PASSWORD_AUTH",
   },
 });
 
 export class AuthService {
-  public async login(userName: string, password: string) {
-    const result = (await Auth.signIn(userName, password)) as CognitoUser;
-    return result;
+  public async confirmSignUp(
+    username: string,
+    code: string
+  ): Promise<any | undefined> {
+    try {
+      const result = await Auth.confirmSignUp(username, code);
+      return result;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+
+  public async signUp(
+    username: string,
+    password: string,
+    email: string
+  ): Promise<CognitoUser | undefined> {
+    try {
+      const result = await Auth.signUp({
+        username,
+        password,
+        attributes: {
+          email,
+        },
+      });
+      return result.user;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+  public async login(
+    userName: string,
+    password: string
+  ): Promise<User | undefined> {
+    try {
+      const user = (await Auth.signIn(userName, password)) as CognitoUser;
+      return {
+        cognitoUser: user,
+        userName: user.getUsername(),
+        isAdmin: false,
+      };
+    } catch (error) {
+      console.log(error);
+      return undefined;
+    }
+  }
+
+  public async logOut() {
+    return await Auth.signOut();
   }
 }
