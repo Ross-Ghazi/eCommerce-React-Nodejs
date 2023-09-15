@@ -6,10 +6,13 @@ import { Construct } from "constructs";
 import { join } from "path";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
 
+interface BackEndStackProps extends StackProps {
+  shopTable: ITable;
+}
 export class BackEndStack extends Stack {
   public readonly helloLambdaIntegration: LambdaIntegration;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: BackEndStackProps) {
     super(scope, id, props);
 
     // creating lambda functions
@@ -27,7 +30,7 @@ export class BackEndStack extends Stack {
       handler: "handler",
       entry,
       environment: {
-        TABLE_NAME: "empty for now",
+        TABLE_NAME: props?.shopTable.tableName || "",
       },
     });
 
