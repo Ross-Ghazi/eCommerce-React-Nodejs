@@ -2,3 +2,5 @@
 - Also db table and apigateway is deployed.
 - The lambda will list s3 buckets
 - added debugging feature
+- added cognito user pool
+- added basic login in frontend (account should be sighup and activated before login for now)
