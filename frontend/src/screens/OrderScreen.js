@@ -40,7 +40,7 @@ function OrderScreen({ match }) {
   };
 
   useEffect(() => {
-    if (!order || successPay || order._id != orderId) {
+    if (!order || successPay || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
