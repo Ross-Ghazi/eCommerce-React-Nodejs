@@ -23,7 +23,7 @@
 
 <br />
 
-## Link to live version [Under Construction](https://e-commerce-react-nodejs.herokuapp.com/)
+## Link to live version [website](https://ecommerce-3x9c.onrender.com/#/)
 
 <br />
 
