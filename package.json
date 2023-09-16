@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": "14.17.5"
+    "node": "16.13.0"
   },
   "scripts": {
     "start": "node backend/server",
@@ -33,7 +33,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
     "nodemon": "^2.0.12"
   },
