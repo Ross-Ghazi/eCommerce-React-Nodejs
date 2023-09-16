@@ -46,6 +46,8 @@ MONGO_URI=....
 JWT_SECRET=....
 ```
 
+- Note for MONGO_URI you had to add database name manfully after / and before?, ecommerce in this case
+
 - After installing requirements and creating .env file, run following command on root to run both backend and frontend:
 
 ```
