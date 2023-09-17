@@ -1,14 +1,13 @@
 import React from "react";
 import "./App.css";
-import { AuthService } from "./helper/AuthService";
-import { Login } from "./components/Login";
+import { HomeScreen } from "./pages/HomePage";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <div className="App">Hello Word</div>
-      <Login />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomeScreen />} />
+    </Routes>
   );
 }
 
