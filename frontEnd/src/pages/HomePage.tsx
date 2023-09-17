@@ -5,7 +5,7 @@ import { Loader } from "../components/Loader";
 import { Message } from "../components/Message";
 import { listProducts } from "../actions/ProductActions";
 import "../index.css";
-import { Product } from "../components/Products";
+import { Product } from "../components/Product";
 
 export const HomeScreen = () => {
   const dispatch = useDispatch();
