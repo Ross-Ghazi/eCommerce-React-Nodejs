@@ -11,11 +11,11 @@ function Product({ product }) {
   return (
     <Card className="my-3 p-3 rounded ">
       <Link to={`/product/${product._id}`}>
-        <Card.Img className="imgeheight" src={product.image} />
+        <Card.Img className="imageHeight" src={product.image} />
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Title className="titleheight" as="div">
+          <Card.Title className="titleHeight" as="div">
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
