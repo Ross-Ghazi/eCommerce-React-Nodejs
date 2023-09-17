@@ -17,7 +17,7 @@ import {
   REGISTER_RESET,
 } from "../constants/userConstants";
 
-export const UserLoginRedcuer = (state = {}, action) => {
+export const UserLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -34,7 +34,7 @@ export const UserLoginRedcuer = (state = {}, action) => {
   }
 };
 
-export const UserRegisterRedcuer = (state = {}, action) => {
+export const UserRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
@@ -51,7 +51,7 @@ export const UserRegisterRedcuer = (state = {}, action) => {
   }
 };
 
-export const UserDetailsRedcuer = (state = { user: {} }, action) => {
+export const UserDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAIL_REQUEST:
       return { ...state, loading: true };
