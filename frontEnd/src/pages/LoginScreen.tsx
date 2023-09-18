@@ -7,7 +7,7 @@ import { Message } from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { login } from "../actions/userActions";
 
-const LoginScreen = (props: any) => {
+const LoginScreen = () => {
   const { search } = useLocation();
 
   const [email, setEmail] = useState("");
