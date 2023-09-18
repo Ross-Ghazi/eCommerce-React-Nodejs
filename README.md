@@ -5,6 +5,7 @@
 #### FrontEnd:
 
 - **React**
+  - Typescript
   - Redux
   - Router (react-router-dom)
   - React Bootstrap
