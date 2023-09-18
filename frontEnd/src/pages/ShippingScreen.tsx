@@ -6,7 +6,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
 
-function ShippingScreen() {
+const ShippingScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state: any) => state.cart);
@@ -85,6 +85,6 @@ function ShippingScreen() {
       </Form>
     </FormContainer>
   );
-}
+};
 
 export default ShippingScreen;

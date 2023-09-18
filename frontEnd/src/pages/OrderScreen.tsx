@@ -8,7 +8,7 @@ import { getOrderDetails, payOrder } from "../actions/orderActions";
 import { PayPalButton } from "react-paypal-button-v2";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
-function OrderScreen({}) {
+function OrderScreen() {
   const orderId = useParams().id!;
 
   const dispatch = useDispatch();
