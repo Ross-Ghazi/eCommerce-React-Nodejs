@@ -18,4 +18,5 @@ export interface ProductType {
   price: number;
   numReviews: number;
   rating: number;
+  countInStock: number;
 }

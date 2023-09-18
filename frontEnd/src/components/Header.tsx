@@ -2,13 +2,13 @@ import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-// import { logout } from "../actions/userActions";
+import { logout } from "../actions/userActions";
 
 function Header() {
-  // const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const userInfo = useSelector((state: any) => state.userLogin.userInfo);
   const dispatch = useDispatch();
   const LogoutHandler = () => {
-    // dispatch(logout());
+    dispatch(logout());
   };
   return (
     <header>
@@ -25,7 +25,7 @@ function Header() {
                   <i className="fas fa-shopping-cart"></i>Cart
                 </Nav.Link>
               </LinkContainer>
-              {/* {userInfo ? (
+              {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -42,7 +42,7 @@ function Header() {
                     Login
                   </Nav.Link>
                 </LinkContainer>
-              )} */}
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
