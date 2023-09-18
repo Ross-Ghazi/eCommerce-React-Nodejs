@@ -24,7 +24,7 @@
 
 <br />
 
-## Link to live version [website](https://ecommerce-3x9c.onrender.com/#/)
+## Link to live version [website](https://ecommerce-node-js-b73721c93033.herokuapp.com/)
 
 <br />
 
