@@ -1,6 +1,0 @@
-- At this commit the backend folder is set up and there is a simple hello word lambda to deploy
-- Also db table and apigateway is deployed.
-- The lambda will list s3 buckets
-- added debugging feature
-- added cognito user pool
-- added basic login in frontend (account should be sighup and activated before login for now)
